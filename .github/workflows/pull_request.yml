@@ -7,29 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     name: Pull Request openjdk8
     steps:
-    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
     - name: Build Chain
       id: build-chain
-      uses: kiegroup/github-action-build-chain@openjdk8
+      uses: kiegroup/github-action-build-chain@BXMSPROD-955
       with:
         child-dependencies: 'lienzo-tests'
         build-command: 'mvn -e -nsu -Dfull -Pwildfly clean install -Prun-code-coverage  -Dcontainer.profile=wildfly -Dcontainer=wildfly -Dintegration-tests=true -Dmaven.test.failure.ignore=true -DjvmArgs="-Xms1g -Xmx4g"'
         build-command-upstream: "mvn -e -T1C clean install -DskipTests -Dgwt.compiler.skip=true -Dgwt.skipCompilation=true -Denforcer.skip=true -Dcheckstyle.skip=true -Dspotbugs.skip=true -Drevapi.skip=true"
         workflow-file-name: "pull_request.yml"
-      env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-  build-chain-openjdk11:
-    runs-on: ubuntu-latest
-    name: Pull Request openjdk11
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build Chain
-      id: build-chain
-      uses: kiegroup/github-action-build-chain@openjdk11
-      with:
-        child-dependencies: 'lienzo-tests'
-        build-command: 'mvn -e -nsu -Dfull -Pwildfly clean install -Prun-code-coverage  -Dcontainer.profile=wildfly -Dcontainer=wildfly -Dintegration-tests=true -Dmaven.test.failure.ignore=true -DjvmArgs="-Xms1g -Xmx4g"'
-        build-command-upstream: "mvn -e -T1C clean install -DskipTests -Dgwt.compiler.skip=true -Dgwt.skipCompilation=true -Denforcer.skip=true -Dcheckstyle.skip=true -Dspotbugs.skip=true -Drevapi.skip=true"
-        workflow-file-name: "pull_request.yml"
+        archive-artifacts: ./**/lienzo-core-*SNAPSHOT.jar
+        archive-artifacts-name: lienzo-core.jar
       env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

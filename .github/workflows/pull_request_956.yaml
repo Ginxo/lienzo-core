@@ -19,6 +19,6 @@ jobs:
         build-command: |
           echo "command 1"	
           mvn clean install -DskipTests
-        workflow-file-name: "pull_request_956.yml"
+        workflow-file-name: "pull_request_956.yaml"
       env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

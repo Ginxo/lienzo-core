@@ -12,15 +12,11 @@ jobs:
         uses: ginxo/github-action-build-chain@BXMSPROD-989
         with:
           build-command: |
-            echo "." > file1.txt
-            echo "." > file2.txt
-            echo "." > file3.txt
-            ls
             exit 125
           workflow-file-name: "pull_request.yml"
           archive-artifacts-path: |
-            **/file1.txt@always
-            **/file2.txt
-            **/file3.txt@failure
+            **/README.md@always
+            **/pom.xml
+            **/LICENSE.txt@failure
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

@@ -18,8 +18,8 @@ jobs:
             exit 125
           workflow-file-name: "pull_request.yml"
           archive-artifacts-path: |
-            file1.txt@always
-            file2.txt
-            file3.txt@failure
+            **/file1.txt@always
+            **/file2.txt
+            **/file3.txt@failure
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

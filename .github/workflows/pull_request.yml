@@ -15,6 +15,7 @@ jobs:
             echo "." > file1.txt
             echo "." > file2.txt
             echo "." > file3.txt
+            ls
             exit 125
           workflow-file-name: "pull_request.yml"
           archive-artifacts-path: |
